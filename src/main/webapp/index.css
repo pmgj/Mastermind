@@ -1,0 +1,43 @@
+caption {
+    font-weight: bold;
+    font-size: 200%;
+}
+#board {
+    background-color: lightgray;
+    border-radius: 10px;
+}
+#board, #colors {
+    margin: 0 auto;
+}
+#board td {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background-color: white;
+}
+#board > thead > tr > td:last-child {
+    background-color: lightgray;
+}
+#board > tbody > tr > td:last-child {
+    background-color: lightgray;
+}
+#board table td {
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    min-height: 10px;
+    max-width: 10px;
+    max-height: 10px;
+    border-radius: 10px;
+}
+#colors td {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+}
+#colors {
+    margin-top: 1em;
+}
+div {
+    text-align: center;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mastermind</title>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="index.css" />
+        <script type="module" src="index.js"></script>
+    </head>
+    <body>
+        <table id="board">
+            <caption>Mastermind</caption>
+            <thead>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <table id="colors">
+        </table>
+        <div>
+            <button id="check">Check</button>
+            <button id="start">Start</button>
+        </div>
+        <div>
+            <form>
+                <select name="numberOfColors" id="numberOfColors" title="Number of colors">
+                    <option selected="selected">6</option>
+                    <option>8</option>
+                </select>
+                <select name="numberOfCodes" id="numberOfCodes" title="Number of codes">
+                    <option selected="selected">4</option>
+                    <option>6</option>
+                    <option>8</option>
+                </select>
+                <select name="numberOfTries" id="numberOfTries" title="Number of tries">
+                    <option>8</option>
+                    <option selected="selected">10</option>
+                </select>
+            </form>
+        </div>
+        <div id="output"></div>
+    </body>
+</html>
