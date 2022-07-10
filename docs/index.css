@@ -9,7 +9,7 @@ caption {
     font-size: 200%;
 }
 #board {
-    border-spacing: 10px;
+    border-spacing: 5px;
 }
 #board, #colors {
     margin: 0 auto;
@@ -17,29 +17,26 @@ caption {
 #board td {
     width: var(--selected-radius);
     height: var(--selected-radius);
-    border-radius: var(--selected-radius);
     background-color: white;
-    border: 2px solid gray;
+    border: 1px solid gray;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
 }
 #board tbody td {
     transition: background-color 1s, border-color 1s;
 }
-#board > thead > tr > td:last-child {
-    border: 0;
+#board tbody td:nth-last-child(2) {
+    background-color: lightgreen;
+    border: 1px solid var(--selected-radius);
+    border-radius: var(--selected-radius);
+    color: white;
 }
-#board > tbody > tr > td:last-child {
-    border: 0;
-}
-#board tbody table td {
-    width: var(--answer-radius);
-    height: var(--answer-radius);
-    min-width: var(--answer-radius);
-    max-width: var(--answer-radius);
-    min-height: var(--answer-radius);
-    max-height: var(--answer-radius);
-}
-#board thead td, #board tbody table td {
-    transition: background-color 2s, border-color 2s;
+#board tbody td:last-child {
+    background-color: gray;
+    border: 1px solid var(--selected-radius);
+    border-radius: var(--selected-radius);
+    color: white;
 }
 #colors td {
     width: var(--colors-radius);
