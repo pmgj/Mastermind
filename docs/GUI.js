@@ -4,8 +4,32 @@ import Winner from "./Winner.js";
 class GUI {
     constructor() {
         this.game = null;
-        this.selectedColor = null;
+        this.currentRow = 0;
+        this.currentCol = 0;
+        this.currentCode = []
         this.colors = ["blue", "red", "green", "yellow", "cyan", "magenta", "orange", "lime"];
+        this.thead = document.querySelector("#board thead");
+        this.tbody = document.querySelector("#board tbody");
+    }
+    addColor(color) {
+        if (this.currentCode.length >= this.game.getNumOfCodes()) {
+            return;
+        }
+        this.currentCode.push(this.colors.indexOf(color));
+        let td = this.tbody.rows[this.currentRow].cells[this.currentCol];
+        td.style.backgroundColor = color;
+        td.style.borderColor = color;
+        this.currentCol++;
+    }
+    removeColor() {
+        if (this.currentCol === 0) {
+            return;
+        }
+        this.currentCode.pop();
+        this.currentCol--;
+        let td = this.tbody.rows[this.currentRow].cells[this.currentCol];
+        td.style.backgroundColor = "white";
+        td.style.borderColor = "gray";
     }
     init() {
         let s = document.querySelector("#numberOfCodes");
@@ -18,22 +42,31 @@ class GUI {
         this.printBoard();
         this.printColors();
         this.setMessage("");
-        this.setActiveRow();
+        this.currentRow = numberOfTries - 1;
+        this.currentCol = 0;
+        this.currentCode = [];
     }
     registerEvents() {
         let button = document.querySelector("#check");
         button.onclick = this.check.bind(this);
         button = document.querySelector("#start");
-        button.onclick = this.init;
+        button.onclick = this.init.bind(this);
+        button = document.querySelector("#backspace");
+        button.onclick = this.removeColor.bind(this);
         this.init();
     }
     printBoard() {
-        let tbody = document.querySelector("#board tbody");
-        tbody.innerHTML = "";
+        this.thead.innerHTML = "";
+        let tr = document.createElement("tr");
+        this.thead.appendChild(tr);
+        for (let j = 0; j < this.game.getNumOfCodes(); j++) {
+            tr.appendChild(document.createElement("td"));
+        }
 
+        this.tbody.innerHTML = "";
         for (let i = 0; i < this.game.getNumOfTries(); i++) {
-            let tr = document.createElement("tr");
-            tbody.appendChild(tr);
+            tr = document.createElement("tr");
+            this.tbody.appendChild(tr);
             for (let j = 0; j < this.game.getNumOfCodes(); j++) {
                 tr.appendChild(document.createElement("td"));
             }
@@ -53,8 +86,7 @@ class GUI {
                 tr = document.createElement("tr");
                 table.appendChild(tr);
             }
-            let td = document.createElement("td");
-            tr.appendChild(td);
+            tr.appendChild(document.createElement("td"));
         }
 
         let tds = document.querySelectorAll("#colors td");
@@ -64,51 +96,44 @@ class GUI {
         });
     }
     setColor(ev) {
-        this.selectedColor = ev.target.style.backgroundColor;
-    }
-    setRowColor(ev) {
-        ev.target.style.backgroundColor = this.selectedColor;
-        ev.target.style.borderColor = this.selectedColor;
+        this.addColor(ev.target.style.backgroundColor);
     }
     setMessage(text) {
         let ret = document.querySelector("#message");
         ret.textContent = text;
     }
-    setActiveRow() {
-        let cells = document.querySelectorAll(`#board > tbody > tr:not(:nth-child(${this.game.getNumOfTries()})) > td:not(:last-child)`);
-        cells.forEach(elem => elem.removeEventListener("click", this.setRowColor.bind(this)));
-        let cells2 = document.querySelectorAll(`#board > tbody > tr:nth-child(${this.game.getNumOfTries()}) > td:not(:last-child)`);
-        cells2.forEach(elem => elem.addEventListener("click", this.setRowColor.bind(this)));
-    }
     check() {
-        let cells = document.querySelectorAll(`#board > tbody > tr:nth-child(${this.game.getNumOfTries()}) > td`);
-        let result = [];
-        for (let i = 0; i < this.game.getNumOfCodes(); i++) {
-            let corDeFundo = cells[i].style.backgroundColor;
-            let colorIndex = this.colors.indexOf(corDeFundo);
-            result.push(colorIndex);
-        }
         try {
-            let ret = this.game.play(result);
+            let ret = this.game.play(this.currentCode);
             this.showHint(ret.getHint());
             if (ret.getWinner() === Winner.WIN) {
+                this.showAnswer(this.currentCode);
                 this.setMessage("Game over. You win!");
             } else if (ret.getWinner() === Winner.LOSE) {
+                this.showAnswer(this.game.CODE);
                 this.setMessage("Game over. You lose!");
             } else {
-                this.setActiveRow();
+                this.currentRow--;
+                this.currentCol = 0;
+                this.currentCode = [];
             }
         } catch (ex) {
             this.setMessage(ex.message);
         }
     }
+    showAnswer(answer) {
+        let tds = this.thead.querySelectorAll("td");
+        for(let i = 0; i < tds.length; i++) {
+            tds[i].style.backgroundColor = this.colors[answer[i]];
+            tds[i].style.borderColor = this.colors[answer[i]];
+        }
+    }
     showHint(result) {
-        let correctCell = document.querySelector(`#board > tbody > tr:nth-child(${this.game.getNumOfTries() + 1}) > td:nth-last-child(2)`);
+        let correctCell = document.querySelector(`#board tbody tr:nth-child(${this.game.getNumOfTries() + 1}) td:nth-last-child(2)`);
         correctCell.textContent = result.filter(n => n == 2).length;
-        let wrongCell = document.querySelector(`#board > tbody > tr:nth-child(${this.game.getNumOfTries() + 1}) > td:last-child`);
+        let wrongCell = document.querySelector(`#board tbody tr:nth-child(${this.game.getNumOfTries() + 1}) td:last-child`);
         wrongCell.textContent = result.filter(n => n == 1).length;
     }
 }
-
 let gui = new GUI();
 gui.registerEvents();
