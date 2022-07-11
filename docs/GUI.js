@@ -10,6 +10,8 @@ class GUI {
         this.colors = ["blue", "red", "green", "yellow", "cyan", "magenta", "orange", "lime"];
         this.thead = document.querySelector("#board thead");
         this.tbody = document.querySelector("#board tbody");
+        let button = document.querySelector("#start");
+        button.onclick = this.init.bind(this);
     }
     addColor(color) {
         if (this.currentCode.length >= this.game.getNumOfCodes()) {
@@ -45,15 +47,19 @@ class GUI {
         this.currentRow = numberOfTries - 1;
         this.currentCol = 0;
         this.currentCode = [];
+        this.registerEvents();
     }
     registerEvents() {
         let button = document.querySelector("#check");
         button.onclick = this.check.bind(this);
-        button = document.querySelector("#start");
-        button.onclick = this.init.bind(this);
         button = document.querySelector("#backspace");
         button.onclick = this.removeColor.bind(this);
-        this.init();
+    }
+    unregisterEvents() {
+        let button = document.querySelector("#check");
+        button.onclick = undefined;
+        button = document.querySelector("#backspace");
+        button.onclick = undefined;
     }
     printBoard() {
         this.thead.innerHTML = "";
@@ -62,7 +68,6 @@ class GUI {
         for (let j = 0; j < this.game.getNumOfCodes(); j++) {
             tr.appendChild(document.createElement("td"));
         }
-
         this.tbody.innerHTML = "";
         for (let i = 0; i < this.game.getNumOfTries(); i++) {
             tr = document.createElement("tr");
@@ -77,10 +82,8 @@ class GUI {
     printColors() {
         let table = document.querySelector("#colors");
         table.innerHTML = "";
-
         let tr = document.createElement("tr");
         table.appendChild(tr);
-
         for (let i = 0; i < this.game.getNumOfColors(); i++) {
             if (i === Math.round(this.game.getNumOfColors() / 2)) {
                 tr = document.createElement("tr");
@@ -88,7 +91,6 @@ class GUI {
             }
             tr.appendChild(document.createElement("td"));
         }
-
         let tds = document.querySelectorAll("#colors td");
         tds.forEach((elem, index) => {
             elem.style.backgroundColor = this.colors[index];
@@ -109,9 +111,11 @@ class GUI {
             if (ret.getWinner() === Winner.WIN) {
                 this.showAnswer(this.currentCode);
                 this.setMessage("Game over. You win!");
+                this.unregisterEvents();
             } else if (ret.getWinner() === Winner.LOSE) {
                 this.showAnswer(this.game.CODE);
                 this.setMessage("Game over. You lose!");
+                this.unregisterEvents();
             } else {
                 this.currentRow--;
                 this.currentCol = 0;
@@ -129,11 +133,11 @@ class GUI {
         }
     }
     showHint(result) {
-        let correctCell = document.querySelector(`#board tbody tr:nth-child(${this.game.getNumOfTries() + 1}) td:nth-last-child(2)`);
+        let correctCell = this.tbody.querySelector(`tr:nth-child(${this.game.getNumOfTries() + 1}) td:nth-last-child(2)`);
         correctCell.textContent = result.filter(n => n == 2).length;
-        let wrongCell = document.querySelector(`#board tbody tr:nth-child(${this.game.getNumOfTries() + 1}) td:last-child`);
+        let wrongCell = this.tbody.querySelector(`tr:nth-child(${this.game.getNumOfTries() + 1}) td:last-child`);
         wrongCell.textContent = result.filter(n => n == 1).length;
     }
 }
 let gui = new GUI();
-gui.registerEvents();
+gui.init();

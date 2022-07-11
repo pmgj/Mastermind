@@ -14,7 +14,8 @@ caption {
 }
 
 #board,
-#colors, div {
+#colors,
+div {
     margin: 1em auto;
 }
 
@@ -30,17 +31,25 @@ caption {
 }
 
 #board tbody td:nth-last-child(2) {
-    background-color: lightgreen;
+    background-color: rgb(0, 204, 0, 0.4);
     border: 1px solid var(--selected-radius);
     border-radius: var(--selected-radius);
     color: white;
 }
 
+#board tbody td:nth-last-child(2):not(:empty) {
+    background-color: rgb(0, 179, 60);
+}
+
 #board tbody td:last-child {
-    background-color: gray;
+    background-color: rgb(255, 204, 0, 0.4);
     border: 1px solid var(--selected-radius);
     border-radius: var(--selected-radius);
     color: white;
+}
+
+#board tbody td:last-child:not(:empty) {
+    background-color: rgb(225, 204, 0);
 }
 
 #colors td {
