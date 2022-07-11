@@ -15,7 +15,7 @@ import model.ResponseMessage;
 @Path("mastermind")
 public class GenericResource {
 
-    @PUT
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void newGame(@Context HttpServletRequest request, StartMessage values) {
         Integer numOfColors = values.getNumberOfColors();
@@ -26,12 +26,12 @@ public class GenericResource {
         session.setAttribute("mastermind", m);
     }
 
-    @POST
+    @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseMessage checkCode(@Context HttpServletRequest request, CodeMessage codeMessage) {
+    public ResponseMessage checkCode(@Context HttpServletRequest request, int[] code) {
         HttpSession session = request.getSession();
         Mastermind m = (Mastermind) session.getAttribute("mastermind");
-        return m.testCode(codeMessage.getCode());
+        return m.testCode(code);
     }    
 }

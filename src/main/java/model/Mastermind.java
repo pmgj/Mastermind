@@ -35,6 +35,7 @@ public class Mastermind {
         List<Integer> r = this.check(code);
         if (r.stream().allMatch(elem -> elem == 2)) {
             msg.setState(State.WIN);
+            msg.setPassword(this.password);
         } else {
             this.numOfTries--;
             if (this.numOfTries == 0) {

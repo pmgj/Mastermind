@@ -1,9 +1,7 @@
 package model;
 
 import java.util.List;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 public class ResponseMessage {
     private State state;
     private List<Integer> code;

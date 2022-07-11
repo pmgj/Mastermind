@@ -1,43 +1,63 @@
+body {
+    font-family: sans-serif;
+    --selected-radius: 50px;
+    --colors-radius: 30px;
+}
+
 caption {
     font-weight: bold;
     font-size: 200%;
 }
+
 #board {
-    background-color: lightgray;
-    border-radius: 10px;
+    border-spacing: 5px;
 }
-#board, #colors {
-    margin: 0 auto;
+
+#board,
+#colors,
+div {
+    margin: 1em auto;
 }
+
 #board td {
-    width: 30px;
-    height: 30px;
-    border-radius: 30px;
+    width: var(--selected-radius);
+    height: var(--selected-radius);
     background-color: white;
+    border: 1px solid gray;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    transition: background-color 1s, border-color 1s;
 }
-#board > thead > tr > td:last-child {
-    background-color: lightgray;
+
+#board tbody td:nth-last-child(2) {
+    background-color: rgb(0, 204, 0, 0.4);
+    border: 1px solid var(--selected-radius);
+    border-radius: var(--selected-radius);
+    color: white;
 }
-#board > tbody > tr > td:last-child {
-    background-color: lightgray;
+
+#board tbody td:nth-last-child(2):not(:empty) {
+    background-color: rgb(0, 179, 60);
 }
-#board table td {
-    width: 10px;
-    height: 10px;
-    min-width: 10px;
-    min-height: 10px;
-    max-width: 10px;
-    max-height: 10px;
-    border-radius: 10px;
+
+#board tbody td:last-child {
+    background-color: rgb(255, 204, 0, 0.4);
+    border: 1px solid var(--selected-radius);
+    border-radius: var(--selected-radius);
+    color: white;
 }
+
+#board tbody td:last-child:not(:empty) {
+    background-color: rgb(225, 204, 0);
+}
+
 #colors td {
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
+    width: var(--colors-radius);
+    height: var(--colors-radius);
+    border-radius: var(--colors-radius);
 }
-#colors {
-    margin-top: 1em;
-}
+
 div {
     text-align: center;
 }
