@@ -4,7 +4,7 @@ Implementation of the game in JavaScript and Java, using Ajax and REST. The obje
 ## Setup
 The player can choose the number of colors to use, the number of allowed tries, and the code size.
 
-## How to Play
+## Rules
 The player must click on the colors below the board and they will appear in the board, bottom to top. After that, he should click on the "Check" button, and a result will appear on the right size. The number in green indicates the number of colors that are in the correct position while the number in yellow indicates the number of colors that are in the secret code bu not in the correct position. The player can remove current colors by clicking in the "Backspace button".
 
 ## Game Over
