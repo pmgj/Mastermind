@@ -1,42 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Mastermind</title>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" type="text/css" href="index.css" />
-        <link rel="icon" type="image/svg" href="favicon.svg" />
-        <script type="module" src="GUI.js"></script>
-    </head>
-    <body>
-        <table id="board">
-            <caption>Mastermind</caption>
-            <thead>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <table id="colors">
-        </table>
-        <div>
-            <button id="check">Check</button>
-            <button id="start">Start</button>
-            <button id="backspace">Backspace</button><br />
-            <select id="numberOfColors" title="Number of colors">
-                <option selected="selected">6</option>
-                <option>8</option>
-            </select>
-            <select id="numberOfCodes" title="Number of codes">
-                <option selected="selected">4</option>
-                <option>6</option>
-                <option>8</option>
-            </select>
-            <select id="numberOfTries" title="Number of tries">
-                <option selected="selected">6</option>
-                <option>8</option>
-                <option>10</option>
-            </select>
-        </div>
-        <div id="message"></div>
-    </body>
+
+<head>
+    <title>Mastermind</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <link rel="icon" type="image/svg" href="favicon.svg" />
+    <script type="module" src="GUI.js"></script>
+</head>
+
+<body>
+    <table id="board">
+        <caption>Mastermind</caption>
+        <thead>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <table id="colors">
+    </table>
+    <div>
+        <button id="check">Check</button>
+        <button id="start">Start</button>
+        <button id="hint">Hint</button>
+        <button id="backspace">Backspace</button><br />
+        <select id="numberOfColors" title="Number of colors">
+            <option selected="selected">6</option>
+            <option>8</option>
+        </select>
+        <select id="numberOfCodes" title="Number of codes">
+            <option selected="selected">4</option>
+            <option>6</option>
+            <option>8</option>
+        </select>
+        <select id="numberOfTries" title="Number of tries">
+            <option selected="selected">6</option>
+            <option>8</option>
+            <option>10</option>
+        </select>
+    </div>
+    <div id="message"></div>
+</body>
+
 </html>

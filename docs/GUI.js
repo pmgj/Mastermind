@@ -1,12 +1,15 @@
 import Mastermind from "./Mastermind.js";
+import MastermindPlayer from "./MastermindPlayer.js";
 import Winner from "./Winner.js";
 
 class GUI {
     constructor() {
         this.game = null;
+        this.player = null;
         this.currentRow = 0;
         this.currentCol = 0;
-        this.currentCode = []
+        this.currentCode = [];
+        this.board = [];
         this.colors = ["blue", "red", "green", "yellow", "cyan", "magenta", "orange", "lime"];
         this.thead = document.querySelector("#board thead");
         this.tbody = document.querySelector("#board tbody");
@@ -41,12 +44,14 @@ class GUI {
         s = document.querySelector("#numberOfTries");
         let numberOfTries = parseInt(s.value);
         this.game = new Mastermind(numberOfColors, numberOfCodes, numberOfTries);
+        this.player = new MastermindPlayer(this.game);
         this.printBoard();
         this.printColors();
         this.setMessage("");
         this.currentRow = numberOfTries - 1;
         this.currentCol = 0;
         this.currentCode = [];
+        this.board = [];
         this.registerEvents();
     }
     registerEvents() {
@@ -54,11 +59,15 @@ class GUI {
         button.onclick = this.check.bind(this);
         button = document.querySelector("#backspace");
         button.onclick = this.removeColor.bind(this);
+        button = document.querySelector("#hint");
+        button.onclick = this.hint.bind(this);
     }
     unregisterEvents() {
         let button = document.querySelector("#check");
         button.onclick = undefined;
         button = document.querySelector("#backspace");
+        button.onclick = undefined;
+        button = document.querySelector("#hint");
         button.onclick = undefined;
     }
     printBoard() {
@@ -104,9 +113,25 @@ class GUI {
         let ret = document.querySelector("#message");
         ret.textContent = text;
     }
+    hint() {
+        this.play(() => {
+            let code = this.player.createCode(this.board);
+            code.forEach(c => this.addColor(this.colors[c]));
+            let result = this.game.play(code);
+            this.board.push({ question: code, answer: result.getHint() });
+            return result;
+        });
+    }
     check() {
+        this.play(() => {
+            let result = this.game.play(this.currentCode);
+            this.board.push({ question: this.currentCode, answer: result.getHint() });
+            return result;
+        });
+    }
+    play(method) {
         try {
-            let ret = this.game.play(this.currentCode);
+            let ret = method();
             this.showHint(ret.getHint());
             if (ret.getWinner() === Winner.WIN) {
                 this.showAnswer(this.currentCode);
@@ -127,7 +152,7 @@ class GUI {
     }
     showAnswer(answer) {
         let tds = this.thead.querySelectorAll("td");
-        for(let i = 0; i < tds.length; i++) {
+        for (let i = 0; i < tds.length; i++) {
             tds[i].style.backgroundColor = this.colors[answer[i]];
             tds[i].style.borderColor = this.colors[answer[i]];
         }
