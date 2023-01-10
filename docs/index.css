@@ -1,7 +1,7 @@
 body {
     font-family: sans-serif;
-    --selected-radius: 50px;
-    --colors-radius: 30px;
+    --board-size: 50px;
+    --colors-size: 40px;
 }
 
 caption {
@@ -20,8 +20,8 @@ div {
 }
 
 #board td {
-    width: var(--selected-radius);
-    height: var(--selected-radius);
+    width: var(--board-size);
+    height: var(--board-size);
     background-color: white;
     border: 1px solid gray;
     text-align: center;
@@ -32,8 +32,8 @@ div {
 
 #board tbody td:nth-last-child(2) {
     background-color: rgb(0, 204, 0, 0.4);
-    border: 1px solid var(--selected-radius);
-    border-radius: var(--selected-radius);
+    border: 1px solid var(--board-size);
+    border-radius: var(--board-size);
     color: white;
 }
 
@@ -43,8 +43,8 @@ div {
 
 #board tbody td:last-child {
     background-color: rgb(255, 204, 0, 0.4);
-    border: 1px solid var(--selected-radius);
-    border-radius: var(--selected-radius);
+    border: 1px solid var(--board-size);
+    border-radius: var(--board-size);
     color: white;
 }
 
@@ -53,11 +53,20 @@ div {
 }
 
 #colors td {
-    width: var(--colors-radius);
-    height: var(--colors-radius);
-    border-radius: var(--colors-radius);
+    width: var(--colors-size);
+    height: var(--colors-size);
+    border-radius: var(--colors-size);
 }
 
 div {
     text-align: center;
+    line-height: 2.5em;
+}
+
+button, select {
+    font-size: 18px;
+}
+
+select {
+    width: 50px;
 }

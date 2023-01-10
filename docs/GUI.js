@@ -152,10 +152,10 @@ class GUI {
     }
     showAnswer(answer) {
         let tds = this.thead.querySelectorAll("td");
-        for (let i = 0; i < tds.length; i++) {
-            tds[i].style.backgroundColor = this.colors[answer[i]];
-            tds[i].style.borderColor = this.colors[answer[i]];
-        }
+        tds.forEach( (elem, index) => {
+            elem.style.backgroundColor = this.colors[answer[index]];
+            elem.style.borderColor = this.colors[answer[index]];
+        });
     }
     showHint(result) {
         let correctCell = this.tbody.querySelector(`tr:nth-child(${this.game.getNumOfTries() + 1}) td:nth-last-child(2)`);
