@@ -1,19 +1,16 @@
 import Mastermind from "./Mastermind.js";
 import MastermindPlayer from "./MastermindPlayer.js";
+import Winner from "./Winner.js";
 
 class Test {
-    constructor() {
-
-    }
     play(numOfCodes, numOfTries, numOfColors) {
         let m = new Mastermind(numOfColors, numOfCodes, numOfTries);
         let player = new MastermindPlayer(m);
-        let board = [];
         for (let i = 0; i < numOfTries; i++) {
-            let code = player.createCode(board);
-            let result = m.check(code);
-            board.push({ question: code, answer: result });
-            if (result.every(e => e === 2)) {
+            let code = player.createCode();
+            let result = m.play(code);
+            player.answerCode(code, result.getHint());
+            if (result.getWinner() === Winner.WIN) {
                 return true;
             }
         }
@@ -22,9 +19,9 @@ class Test {
 }
 
 let acertos = 0;
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 500; i++) {
     let t = new Test();
-    if (t.play(4, 10, 6)) {
+    if (t.play(4, 8, 8)) {
         acertos++;
     }
 }

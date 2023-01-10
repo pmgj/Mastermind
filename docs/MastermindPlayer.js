@@ -28,16 +28,13 @@ export default class MastermindPlayer {
                         }
         return r;
     }
-    createCode(board) {
-        this.solutions = this.solutions.filter(elem => {
-            for (let obj of board) {
-                let temp = this.m.check(elem, obj.question);
-                if (JSON.stringify(temp) !== JSON.stringify(obj.answer)) {
-                    return false;
-                }
-            }
-            return true;
-        });
+    createCode() {
         return this.solutions[0];
+    }
+    answerCode(code, result) {
+        this.solutions = this.solutions.filter(elem => {
+            let temp = this.m.check(elem, code);
+            return JSON.stringify(temp) === JSON.stringify(result);
+        });
     }
 }

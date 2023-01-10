@@ -9,7 +9,6 @@ class GUI {
         this.currentRow = 0;
         this.currentCol = 0;
         this.currentCode = [];
-        this.board = [];
         this.colors = ["blue", "red", "green", "yellow", "cyan", "magenta", "orange", "lime"];
         this.thead = document.querySelector("#board thead");
         this.tbody = document.querySelector("#board tbody");
@@ -51,7 +50,6 @@ class GUI {
         this.currentRow = numberOfTries - 1;
         this.currentCol = 0;
         this.currentCode = [];
-        this.board = [];
         this.registerEvents();
     }
     registerEvents() {
@@ -115,17 +113,17 @@ class GUI {
     }
     hint() {
         this.play(() => {
-            let code = this.player.createCode(this.board);
+            let code = this.player.createCode();
             code.forEach(c => this.addColor(this.colors[c]));
             let result = this.game.play(code);
-            this.board.push({ question: code, answer: result.getHint() });
+            this.player.answerCode(code, result.getHint());
             return result;
         });
     }
     check() {
         this.play(() => {
             let result = this.game.play(this.currentCode);
-            this.board.push({ question: this.currentCode, answer: result.getHint() });
+            this.player.answerCode(this.currentCode, result.getHint());
             return result;
         });
     }
