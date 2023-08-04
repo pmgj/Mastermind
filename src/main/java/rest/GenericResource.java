@@ -18,9 +18,9 @@ public class GenericResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void newGame(@Context HttpServletRequest request, StartMessage values) {
-        Integer numOfColors = values.getNumberOfColors();
-        Integer numOfTries = values.getNumberOfTries();
-        Integer numOfCodes = values.getNumberOfCodes();
+        Integer numOfColors = values.numberOfColors();
+        Integer numOfTries = values.numberOfTries();
+        Integer numOfCodes = values.numberOfCodes();
         Mastermind m = new Mastermind(numOfColors, numOfTries, numOfCodes);
         HttpSession session = request.getSession();
         session.setAttribute("mastermind", m);

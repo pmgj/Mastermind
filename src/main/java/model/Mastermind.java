@@ -31,22 +31,17 @@ public class Mastermind {
     }
 
     public ResponseMessage testCode(int[] code) {
-        ResponseMessage msg = new ResponseMessage();
         List<Integer> r = this.check(code);
         if (r.stream().allMatch(elem -> elem == 2)) {
-            msg.setState(State.WIN);
-            msg.setPassword(this.password);
+            return new ResponseMessage(State.WIN, r, this.password);
         } else {
             this.numOfTries--;
             if (this.numOfTries == 0) {
-                msg.setState(State.LOSE);
-                msg.setPassword(this.password);
+                return new ResponseMessage(State.LOSE, r, this.password);
             } else {
-                msg.setState(State.VALID);
+                return new ResponseMessage(State.VALID, r, null);
             }
         }
-        msg.setCode(r);
-        return msg;
     }
 
     private List<Integer> check(int[] test1) {
