@@ -14,8 +14,8 @@ caption {
 }
 
 #board,
-#colors,
-div {
+#colors {
+    border-collapse: separate;
     margin: 1em auto;
 }
 
@@ -58,15 +58,15 @@ div {
     border-radius: var(--colors-size);
 }
 
-div {
-    text-align: center;
-    line-height: 2.5em;
-}
-
-button, select {
+button,
+select {
     font-size: 18px;
 }
 
 select {
     width: 50px;
+}
+
+#message {
+    text-align: center;
 }
