@@ -25,7 +25,8 @@ class GUI {
         td.style.borderColor = color;
         this.currentCol++;
     }
-    removeColor() {
+    removeColor(evt) {
+        evt.preventDefault();
         if (this.currentCol === 0) {
             return;
         }
@@ -35,7 +36,8 @@ class GUI {
         td.style.backgroundColor = "white";
         td.style.borderColor = "gray";
     }
-    init() {
+    init(evt) {
+        evt?.preventDefault();
         let s = document.querySelector("#numberOfCodes");
         let numberOfCodes = parseInt(s.value);
         s = document.querySelector("#numberOfColors");
@@ -111,7 +113,8 @@ class GUI {
         let ret = document.querySelector("#message");
         ret.textContent = text;
     }
-    hint() {
+    hint(evt) {
+        evt.preventDefault();
         this.play(() => {
             let code = this.player.createCode();
             code.forEach(c => this.addColor(this.colors[c]));
@@ -120,7 +123,8 @@ class GUI {
             return result;
         });
     }
-    check() {
+    check(evt) {
+        evt.preventDefault();
         this.play(() => {
             let result = this.game.play(this.currentCode);
             this.player.answerCode(this.currentCode, result.getHint());
