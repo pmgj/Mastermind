@@ -1,12 +1,6 @@
 body {
-    font-family: sans-serif;
     --board-size: 50px;
     --colors-size: 40px;
-}
-
-caption {
-    font-weight: bold;
-    font-size: 200%;
 }
 
 #board {
@@ -22,7 +16,6 @@ caption {
 #board td {
     width: var(--board-size);
     height: var(--board-size);
-    background-color: white;
     border: 1px solid gray;
     text-align: center;
     font-size: 28px;
@@ -65,8 +58,4 @@ select {
 
 select {
     width: 50px;
-}
-
-#message {
-    text-align: center;
 }
